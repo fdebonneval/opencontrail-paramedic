@@ -9,5 +9,9 @@ resource "openstack_compute_instance_v2" "bastion" {
   flavor_id = "17"
   key_pair = "foucault"
   security_groups = ["${openstack_compute_secgroup_v2.sg-icmp-ssh.name}"]
+  metadata {
+    this = "that"
+  }
+  user_data = "${file(\"files/bastion-cloudinit.sh\")}"
   count = 1
 }
